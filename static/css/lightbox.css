@@ -1,0 +1,48 @@
+#lightbox{
+	position: fixed;
+	background-color:transparent;
+	padding-top:45px;
+	padding-left:300px;
+	border:none;
+	width: 0px;
+	height: 0px;
+	float: center;
+	}
+	
+#lightboxDetails{
+	font-size: 0.8em;
+	padding-top: 0.4em;
+	}	
+#lightboxCaption{ float: left; }
+#keyboardMsg{ float: right; }
+#closeButton{ top: 5px; left: 5px; }
+
+#lightbox img{ border: none; clear: both;} 
+#overlay img{ border: none; 
+width: 400px;
+height: 300px;}
+
+#overlay{ background-image: url(overlay.png); }
+#overlay{
+  -webkit-animation-duration:3s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes cssAnimation {
+  from {
+    -webkit-transform: rotate(0deg) scale(1) skew(0deg) translate(100px);
+  }
+  to {
+    -webkit-transform: rotate(0deg) scale(2) skew(0deg) translate(100px);
+  }
+}
+}
+
+* html #overlay{
+	background-color: black;
+	back\ground-color: black;
+	filter:
+	 progid:DXImageTransform.Microsoft.AlphaImageLoader(src="overlay.png", sizingMethod="skew");
+	}
+	

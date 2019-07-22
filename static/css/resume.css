@@ -1,0 +1,104 @@
+
+
+
+.open-button {
+  background-color: darkred;
+  padding-top: 10px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: relative;
+  bottom: 23px;
+  right: 28px;
+  width: 300px;
+}
+
+.form-popup {
+  display: none;
+  
+  padding-right: 10px;
+  color: #141323;
+  padding-top: px;
+  position: relative;
+  bottom: 0;
+  right: 15px;
+  border: none;
+  z-index: 9;
+  width: 400px;
+}
+
+.form-container {
+  max-width: 300px;
+  padding: 5px;
+  background-color: white;
+}
+
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+.form-container .cancel {
+  background-color: red;
+}
+
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+
+
+}
+
+#h1{
+  font-size: 22px;
+  font-weight: bold;
+  color: darkred;
+}
+#textarea{
+  width: 340px;
+  background-color: #ddf7ff
+
+}
+#h{
+  font-weight: bold;
+  font-size: 35px;
+  color: darkred;
+
+}
+#sub_but{
+  background: darkred;
+}
+.sidenav {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 85px;
+}
+.active, .open-button:hover {
+  background-color: saddlebrown;
+  color: white;
+}

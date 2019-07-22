@@ -1,0 +1,19 @@
+
+{%  extends "layout.html" %}
+{% block body %}
+
+  <form style="padding: 200px;" class="" method="post" action="{% url 'appli:home' %}">
+                {% csrf_token %}
+
+
+
+    <div class="container">
+      <label for="id"><b>Enter id</b></label>
+      <input type="text" placeholder="Enter id" name="id" required>
+      <button type="submit" >Fetch</button>
+
+       </div>
+
+  </form>
+
+{% endblock body %}

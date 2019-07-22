@@ -1,0 +1,300 @@
+{% extends "layout.html" %}
+{% block body %}
+
+{% block w %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+body {
+  font-family: "Lato", sans-serif;
+}
+
+#drop_text{
+  padding-left: 80px;
+}  
+
+#drop_text:hover{
+  color: white;
+}
+#side_text{
+  background-color: darkred;
+  height: 45px;
+  padding-top: 10px;
+  padding-left: 80px;
+  font-weight: lighter;
+  font-size: 16px;
+  color: white;
+}
+#side_text:hover{
+  background-color: saddlebrown;
+
+}
+/* Fixed sidenav, full height */
+.sidenav {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+padding-top: 40px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+.sidenav a{
+
+  padding-left: 20px;
+  padding-top: 4px;
+
+
+}
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn1:hover {
+  color: saddlebrown;
+}
+
+/* Main content */
+
+
+/* Add an active class to the active dropdown button */
+.active {
+  background-color: transparent;
+  color: white;
+}
+
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color: #262626;
+  padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+  float: right;
+  padding-right: 3px;
+}
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 50px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
+{% endblock w %}
+
+<div class="row" style="padding-right: 5px;padding-left: 5px;">
+
+
+
+
+  <div class="col-sm-1 " >
+
+
+
+
+
+
+<div class="sidenav">
+  <br>
+  <br>
+<button id="side_text"  type="submit" class="dropdown-btn" >Categeries<i class="fa fa-caret-down"></i>
+  </button>
+
+  <div class="dropdown-container">
+    <a id="drop_text"  href="#">Education</a>
+    <br>
+    <a  id="drop_text"  href="#">Art/craft</a>
+    <br>
+    <a id="drop_text"   href="#">Politics</a>
+  </div>
+    <p></p>
+
+<a id="side_text"  href="#">Top bloggers</a>
+<p></p>
+<a id="side_text"href="#">Top blogs</a>
+<p></p>
+
+<a id="side_text" href="#">Old Blog</a>
+<p></p>
+
+<a id="side_text" href="#">New Blog</a>
+<p></p>
+
+<a id="side_text" href="#">Signup/login</a>
+
+</div>
+
+</div>
+
+<!-- -------------------------------------------------------------javascript----------------------------------------------------------
+ -->
+ <script>
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+  this.classList.toggle("active");
+  var dropdownContent = this.nextElementSibling;
+  if (dropdownContent.style.display === "block") {
+  dropdownContent.style.display = "none";
+  } else {
+  dropdownContent.style.display = "block";
+  }
+  });
+}
+</script>
+
+
+
+
+  <div class="col-sm-8 col-offset-0" style="padding-left: 130px;">
+
+
+    <!-- Post Content Column -->
+<br>
+                <h3>Articles List</h3>
+      
+
+{% if article %}
+
+{% for article in article %}
+
+<hr>
+
+      <!-- Title -->
+      <hr style="background-color: black;">
+      <a href="{% url 'article:detail' article.id %}"><h2 class="mt-4" style="color: black;font-size: 25px;">{{article.title}}</h2></a> 
+        
+    
+
+      <!-- Date/Time -->
+      <p>{{article.created_date}}</p>
+      <!-- Preview Image -->
+      {% if article.article_image %}
+<div class="row">
+  <div class="col-sm-5">
+      <a href="{% url 'article:detail' article.id %}"><img class="img-fluid rounded" src="{{article.article_image.url}}" alt="" style="width: 400px;height: 200px;"></a>
+      </div>
+      <div class="col-sm-7">
+            <p class="lead">
+
+      <!-- Post Content -->
+         {{article.content|safe|truncatewords:40}}
+      </p>
+
+           <p class="lead" style="font-size: 16px;color:darkred;font-weight: bold;">Author: {{article.author.username}} </p>
+          
+
+      <a style ="background-color: darkred; float : right;" href="{% url 'article:detail' article.id %}" class ="btn btn-danger">Article Details</a>
+           </div>
+
+</div>
+      {% endif %}
+
+         
+
+{% endfor %}
+<br>
+<div class="pagination" style="padding-left: 70%;font-size: 25;font-weight: bold;">
+    <span class="step-links">
+        {% if article.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ article.previous_page_number }}">Prev</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ article.number }} of {{ article.paginator.num_pages }}.
+        </span>
+
+        {% if article.has_next %}
+            <a href="?page={{ article.next_page_number }}">Next</a>
+            <a href="?page={{ article.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+
+{% else %}
+    
+<div class = "alert alert-danger" style="padding-left: 450px;">
+   No Match 
+</div>
+
+{% endif %}
+</div>
+
+
+
+
+      <div class="col-sm-1" style="padding-left: 100px;">
+
+<div style="width: 780px;">
+  
+            <form style="position: fixed;" >
+                 {% csrf_token %} 
+                <input style="height: 35px;width: 240px;border-color: black;" type="text" name = "keyword" class="input-sm" maxlength="64" placeholder="type here...">
+                <br>
+              <button  style="width: 245px;height: 30px;font-size: 15px;font-weight: bold;background-color: darkred  " type="submit" class="btn btn-danger" ><p>Search</p></button>
+            </form>
+
+
+</div>
+<hr>
+<hr>
+<br>
+<br>
+<br>
+
+
+
+     <div style="width: 250px;height: 300px;position: fixed; background-color: black;padding:10px;border:1px solid grey;opacity: .9">
+      <h1 align="center"  style="font-weight: bold;font-size: 20px;">Best Authors</h1>
+       
+{% if artic %}
+
+{% for k in artic %}
+    <a href="#" ><p align="center" style="font-size: 16px;color: white;font-weight: lighter;">{{k.username}}</p></a>
+
+
+{% endfor %}
+ {% endif %}
+
+     </div>
+
+<hr>
+<hr>
+<br>
+<br>
+
+<hr>
+<hr>
+<br>
+<br>
+<hr>
+<hr>
+<br>
+<br>
+<br>
+     <div style="width: 250px;height: 300px;position: fixed; background-color: black;padding:10px;border:1px solid grey;opacity: .9"></div>
+
+
+    </div>
+</div>
+{% endblock body %}

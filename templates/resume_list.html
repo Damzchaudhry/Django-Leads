@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class ="row">
+    <div class="col-md- offset-md-2">
+        <div class="col-lg-8">
+<form method="GET" style="width: 300px; height: 8px;" action="{% url 'resume:cv_list'%}">
+<input type="text" name="keyword" >
+
+    <button type="submit">Search</button>
+  </form>
+  <br>
+  <br>
+  <br><br><br>
+  <ul>
+
+      </div>
+    </div>
+
+</div>
+
+<br>
+<div class ="row">
+    
+        <div class="col-md-10 offset-md-2">
+            <div class="col-lg-8">
+
+                </div>
+        </div>
+</div>
+
+{% if resume %}
+
+{% for resume in resume %}
+<div class="row">
+    <div class="col-md-10 offset-md-2">
+
+    <!-- Post Content Column -->
+    <div class="col-lg-8">
+
+
+      <!-- Title -->
+      <hr style="background-color: black;">
+      <a href="{% url 'resume:detail' resume.id %}"><h2 class="mt-4" style="color: black;font-size: 25px;">{{resume.author}}</h2></a> 
+
+       <p> Grduation: {{resume.ug}}</p> 
+
+       <p>Skills : {{resume.skill }}</p>       
+           <p>Experience : {{resume.exp }}</p>       
+
+
+      
+
+         
+        </div>
+      </div>
+      </div>
+
+{% endfor %}
+<br>
+
+
+{% else %}
+<div class ="row">
+    
+    <div class="col-md-10 offset-md-2">
+        <div class="col-lg-8">
+<div class = "alert alert-danger">
+   No Match 
+</div>
+</div>
+</div>
+</div>
+{% endif %}
+
+{% endblock body %}

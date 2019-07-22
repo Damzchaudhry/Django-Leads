@@ -1,0 +1,376 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+<!-- -----------------------------------------------------Body------------------------------------ -->
+<h2 align="center" id="h" >Curriculum Vitae</h2>
+
+<form id="form" method="POST" action="{% url 'resume:Res' %}" style=" width: 1500px;">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="sidenav" id="myDIV">
+        <br>
+        <br>
+        <button class="open-button" onclick="openForm()">Personal Details.</button><br>
+        <button class="open-button" onclick="openForm1()">Academic Details.</button><br>
+        <button class="open-button" onclick="openForm2()">Experience/Skills.</button>
+      </div>
+    </div>
+
+    <div class="col-sm-1"></div>
+
+    <div class="col-sm-3" style="padding-top: 10px;">
+      {% csrf_token %}
+      {% if messages %}
+      <ul>
+      {% for message in messages %}
+      <li style="color:darkgreen;">{{ message }}</li>
+      {% endfor %}
+      </ul>
+      {% endif %}
+
+      <div class="form-popup" id="myForm" style="display: block;">
+
+
+
+    <label  for="author"><b>Full name</b></label>
+    <input type="text" name="Author" value="{{request.user}}" ><br>
+
+    <label id="email_id" for="email"><b>Email</b></label>
+    <br>
+   <input type="email"  id="email" value="{{file_content}}" name="email">
+    <p style="color: red;font-size: 15px;font-weight: lighter;" id="error"></p>
+
+    <label for="add"><b>Address</b></label>
+    <input type="text" placeholder="Address" name="add" required>
+
+
+    <label id="phone_id" for="phone"><b>Contact no.</b></label>
+    <input style="border-color:none;" type="text" id="id_phone" value="{{file_content1}}" name="phone" required>
+    <p style="color: red;font-size: 15px;font-weight: lighter;" id="error1"></p>
+
+    <label for="hob"><b>Hobbies</b></label>
+    <input type="text" placeholder="Hobbies" name="hob" required>
+    <br>
+    <br>
+
+    <label for="dob"><b>Date of Birth</b></label>
+    <input type="date" placeholder="" name="dob" required>
+    <br>
+    <br>
+
+
+    <label for="gender"><b>Gender</b></label>
+   &nbsp<input id="gend" type="radio" name="gender" value="male" > &nbspMale &nbsp 
+   <input id="gend" type="radio" name="gender" value="female"> &nbspFemale &nbsp   
+   <input id="gend" type="radio" name="gender" value="other"> &nbspOther  
+
+<!--     <button type="submit" class="btn">Login</button>
+ -->    <button type="button" class="btn cancel" onclick="closeForm()">Next</button>
+  
+</div>
+
+
+
+<!-- --------------------------------------------colum 2------------------------- -->
+<div class="form-popup" id="myForm1">
+    <h1 id="h1">10th :</h1>
+
+    <label for="school_high"><b>School</b></label>
+    <input type="text" placeholder="School" name="school_high" required>
+
+
+    <label for="high"><b>Grade Point</b></label>
+    <input type="text" placeholder="Percentage" name="high" required>
+<br>
+    <label for="board_high"><b>Board</b></label>
+
+
+  <select name="board_high" >
+  <option value="CBSE"> CBSE</option>
+  <option value="UP">UP</option>
+  <option value="ICSE">ICSE</option>
+</select>
+</select>&nbsp &nbsp 
+    <label for="year_high"><b>Year</b></label>
+    <input type="date" placeholder="" name="year_high" required>
+    <br>
+
+
+<br>
+<!-- -------------------------------------------------12th-------------------     -->
+    <h1 id="h1"> 12th :</h1>
+
+    <label for="school_inter"><b>School</b></label>
+    <input type="text" placeholder="School" name="school_inter" required>
+
+
+    <label for="inter"><b>Grade Point</b></label>
+    <input type="text" placeholder="Percentage" name="inter" required>
+<br>
+    <label for="board_inter"><b>Board</b></label>
+
+
+  <select name="board_inter">
+  <option value="CBSE"> CBSE</option>
+  <option value="UP">UP</option>
+  <option value="ICSE">ICSE</option>
+</select>&nbsp &nbsp 
+    <label for="year_inter"><b>Year</b></label>
+    <input type="date" placeholder="" name="year_inter" required>
+    <br>
+
+    <br>
+
+
+
+    <!-- ---------------------------------graduation------------------------ -->
+  <h1 id="h1">Graduation</h1>
+
+  <label for="ug_coll"><b>Collage</b></label>
+  <input type="text" name="ug_coll" placeholder="ug_coll" required>
+<br>
+<br>
+  <label for="year_ug"><b>Year</b></label>
+  <input type="date" name="year_ug" placeholder="year_ug" required>
+&nbsp
+<label for="ug"><b>Course</b></label>
+  <select name="ug">
+  <option value="BCA"> BCA</option>
+  <option value="Btech">Btech</option>
+  <option value="BBA">BBA</option>
+  <option value="B.com"> B.com</option>
+  <option value="Bsc">Bsc</option>
+  <option value="Mca">Mca</option>
+</select><br><!--     <button type="submit" class="btn">Login</button>
+ -->    <button type="button" class="btn cancel" onclick="closeForm1()">Next</button>
+  
+</div>
+
+<!-- ----------------------------------------------colum 3-------------------- -->  
+  <div class="form-popup" id="myForm2">
+
+<label for="exp"><b>Experience</b></label>
+<select name="exp">
+  <option value="Fresher">0(Fre.)</option>
+  <option value="1 years">1</option>
+  <option value="2 years">2</option>
+  <option value="3 years"> 3</option>
+  <option value="4 years">4</option>
+  <option value="4+ years">4+</option>
+</select>
+<br>
+<label for="skil"><b>Additional Skill</b></label>
+<textarea id="textarea" type="text" name="skill" required></textarea>
+<br>
+<label for="area_of_skill"><b> Department </b></label>
+<select name="area_of_skill">
+  <option value="Php Developer">Php Developer</option>
+  <option value="Manager">Manager</option>
+  <option value="Ca">Ca</option>
+  <option value="Designer">Designer</option>
+  <option value="Sales Executive">Sales Exe.</option>
+  <option value="Softwere Tester">Tester</option>
+    <option value="accountant">accountnt</option>
+  <option value="Buisness planing">Planner</option>
+  <option value="Softwere Architect">Architect</option>
+  <option value="Java Developer">Java dev.</option>
+  <option value="Python Developer">Python deve.</option>
+</select>
+<br>
+
+
+
+ <button 
+id="sub_but" type="submit" class="btn">Submit
+</button>
+</div>
+
+</div>
+</div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------ -->
+<!-- ----------------------------------------------------------------------------------------------- -->
+<!-- -----------------------------------------Script for dropdown--------------------------- -->
+
+
+<script>
+// Add active class to the current button (highlight it)
+var header = document.getElementById("myDIV");
+var btns = header.getElementsByClassName("open-button");
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function() {
+  var current = document.getElementsByClassName("active");
+  if (current.length > 0) { 
+    current[0].className = current[0].className.replace(" active", "");
+  }
+  if (current.length > 0) { 
+    current[0].className = current[0].className.replace(" open-button", "");
+  }
+
+
+  
+  this.className += " active";
+  });
+}
+</script>
+<!-- -----------------------------------------------------------------------upload -->
+
+
+<!-- -------------Script- open form --------------------------------------------- -->
+<script>
+function openForm() {
+  var x=document.getElementById("myForm");
+  if (x.style.display === "none") {
+    document.getElementById("myForm").style.display = "block";
+    document.getElementById("myForm1").style.display = "none";
+    document.getElementById("myForm2").style.display = "none";    
+    
+  }
+  else {
+    x.style.display = "none";
+  }
+
+
+}
+function closeForm() {
+  var x=document.getElementById("myForm");
+  if (x.style.display === "block") {
+    document.getElementById("myForm").style.display = "none";
+    document.getElementById("myForm1").style.display = "block";
+
+
+
+  }
+}
+</script>
+<!-- -------------------------------------open form1------------------------- -->
+<script>
+function openForm1() {
+  var x=document.getElementById("myForm1");
+  if (x.style.display === "none") {
+    document.getElementById("myForm").style.display = "none";
+    document.getElementById("myForm1").style.display = "block";
+    document.getElementById("myForm2").style.display = "none"; 
+     }
+
+  else {
+    x.style.display = "none";
+  }
+
+
+}
+
+function closeForm1() {
+  var x=document.getElementById("myForm1");
+  if (x.style.display === "block") {
+      document.getElementById("myForm1").style.display = "none";
+      document.getElementById("myForm2").style.display = "block";
+    }
+  }
+</script>
+<!-- -------------------------------------open form2------------------------- -->
+<script>
+function openForm2() {
+
+  var x=document.getElementById("myForm2");
+  if (x.style.display === "none") {
+    document.getElementById("myForm").style.display = "none";
+    document.getElementById("myForm1").style.display = "none";
+    document.getElementById("myForm2").style.display = "block";  }
+  else {
+    x.style.display = "none";
+  }
+
+
+}
+
+</script>
+
+
+
+
+<!---------------------------------------Script for validations---------------------- -->
+
+
+<!-- ------------------------------ --validate Email----------------------------------------->
+
+
+ <script>
+    $("#id_email").change(function () {
+      var form = $(this).closest("form");
+      $.ajax({
+        url: '{% url 'resume:validate_email' %}',
+        data: form.serialize(),
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken)
+            document.getElementById("error").style.color="red",
+            document.getElementById("email_id").style.color="red",
+
+            document.getElementById("error").innerHTML = data.error_message 
+          else
+            document.getElementById("error").style.color="green",
+            document.getElementById("error").innerHTML = "email available",
+            document.getElementById("email_id").style.color="#141323"
+
+}
+
+      });
+
+    });
+
+  </script>
+
+
+
+
+<!-- -----------------------------------validate phone---------------------------------------------- -->
+ <script>
+    $("#id_phone").change(function () {
+      var form = $(this).closest("form");
+      $.ajax({
+        url: '{% url 'resume:validate_phone' %}',
+        data: form.serialize(),
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken)
+            document.getElementById("error1").style.color="red",
+            document.getElementById("phone_id").style.color="red",
+
+            document.getElementById("error1").innerHTML = data.error_message 
+
+
+          else
+            document.getElementById("error1").style.color="green",
+            document.getElementById("error1").innerHTML = "valid number",
+            document.getElementById("phone_id").style.color="#141323"
+}
+
+      });
+    });
+
+    
+  </script>
+
+
+{% endblock body %}

@@ -1,0 +1,184 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<br>
+<br>
+<div class="row" style="font-weight: bold;font-family: cursive;">
+    <div class="col-md-6 offset-md-3">
+<h2 style="">Register Here</h2>
+
+  <form class="modal-content animate" method="post" >
+    {% csrf_token %}
+    <div class="container">
+
+      <label  for="username" ><b>Username <b style="color: darkred">*</b></b></label>
+
+      <input  type="text" name="username" placeholder="Enter Username" id="id_username" class="js-validate-username">
+      <p style="color: red;font-size: 15px;font-weight: lighter;" id="error"></p>
+
+      
+
+
+
+
+      <label for="email"><b>Email <b style="color: darkred;">*</b></b></label>
+      <input id="id_email" type="Email" placeholder="Enter email" name="email" required>
+      <p style="color: red;font-size: 15px;font-weight: lighter;" id="email_error"></p>
+
+      <br>
+
+      
+
+      <label for="password"><b>Password <b style="color: darkred">*</b></b></label>
+      <input id="id_pass" type="password" placeholder="Enter Password" name="password" required>
+
+      <p style="color: red;font-size: 15px;font-weight: lighter;" id="pass"></p>
+
+      <br>
+      <label for="confirm" ><b>Confirm Password <b style="color: darkred">*</b></b></label>
+      <input type="password" placeholder="Confirm Password" name="confirm" required>
+      <a style="color: darkred;font-size: 15;font-weight: lighter;">{{form.non_field_errors}}</a>
+        
+      
+
+      <button type="submit" class="btn-btn-danger">Sign Up</button>
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+    </div>
+  </div>
+
+  </form>
+</div>
+</div>
+
+
+<!-- ---------------------------------------------------Javascript-----------------------------------------
+ -->
+
+
+ <script>
+    $("#id_username").change(function () {
+      var form = $(this).closest("form");
+      $.ajax({
+        url: '{% url 'user:validate_username' %}',
+        data: form.serialize(),
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken)
+            document.getElementById("error").style.color="red",
+
+            document.getElementById("error").innerHTML = data.error_message 
+          else
+            document.getElementById("error").style.color="green",
+            document.getElementById("error").innerHTML = "username available"
+
+
+
+           
+
+
+
+
+
+        
+          
+        }
+
+      });
+
+    });
+
+  </script>
+
+
+
+
+
+
+
+
+
+
+<script>
+    $("#id_email").change(function () {
+      var form = $(this).closest("form");
+      $.ajax({
+        url: '{% url 'user:validate_email' %}',
+        data: form.serialize(),
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken)
+            document.getElementById("email_error").style.color="red",
+
+            document.getElementById("email_error").innerHTML = data.error_message
+
+          else
+            document.getElementById("email_error").style.color="green",
+
+            document.getElementById("email_error").innerHTML = "email id available" 
+
+
+
+
+
+
+ 
+
+          
+        }
+      });
+
+    });
+  </script>
+   {% endblock body %}
+
+<!--
+<br>
+<br>
+<div class="row" style="font-weight: bold;font-family: cursive;">
+    <div class="col-md-6 offset-md-3">
+<h2 style="">Register Here</h2>
+<form class="modal-content animate" method="post">
+                {% csrf_token %}
+<div class="container">
+      <label id="id_username" for="username"><b>Username <b style="color: darkred">*</b></b></label>
+      <input type="text" placeholder="Enter Username" name="username" required>
+
+
+       <label for="email"><b>Email <b style="color: darkred;">*</b></b></label>
+      <input type="Email" placeholder="Enter email" name="email" required>
+      <br>
+
+
+      <label for="password"><b>Password <b style="color: darkred">*</b></b></label>
+      <input type="password" placeholder="Enter Password" name="password" required>
+
+      <label for="confirm" ><b>Confirm Password <b style="color: darkred">*</b></b></label>
+      <input type="password" placeholder="Confirm Password" name="confirm" required>
+      <a style="color: darkred;font-size: 15;font-weight: lighter;">{{form.non_field_errors}}</a>
+        
+      <button type="submit" class="btn-btn-danger">Login</button>
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+    </div>
+
+  </form>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+  $.get('is-user-name-available/', { username: $(this).val() },
+    function(data, status){
+        if(data == "True"){
+            $input.fieldValid();
+        } else {
+            $input.fieldInvalid("This email address has already been registered.  Try another or recover your password.");
+        }
+});
+</script>
+ -->
+
+
+

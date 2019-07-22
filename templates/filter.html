@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  
+  {% for user in filter.qs %}
+    <li>{{ user.author}} - {{ user.skill}}</li>
+  {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,281 @@
+{% extends "layout.html" %}
+{% block body %}
+
+{% block w %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+body {
+  font-family: "Lato", sans-serif;
+}
+
+/* Fixed sidenav, full height */
+.sidenav {
+  height: 100%;
+  width: 150px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+#article_image:hover{
+  transform:scale(1.01);
+}
+
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+padding-top: 40px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+.sidenav a{
+
+  padding-left: 20px;
+  padding-top: 5px;
+
+
+}
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn1:hover {
+  color: #f1f1f1;
+}
+
+/* Main content */
+
+
+/* Add an active class to the active dropdown button */
+.active {
+  background-color: transparent;
+  color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color: #262626;
+  padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+  float: right;
+  padding-right: 3px;
+}
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 50px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
+{% endblock w %}
+
+<div class="row" style="padding-right: 5px;padding-left: 5px;">
+
+
+
+
+  <div class="col-sm-1 " >
+
+
+
+
+
+
+<div class="sidenav">
+<button   type="submit" class="dropdown-btn" >Categeries<i class="fa fa-caret-down"></i>
+  </button>
+  <div class="dropdown-container">
+    <a href="#">Education</a>
+    <br>
+    <a href="#">Art/craft</a>
+    <br>
+    <a href="#">Politics</a>
+  </div>
+
+<a href="#">Top bloggers</a>
+<br>
+
+<a href="#">Top blogs</a>
+<br>
+
+<a href="#">Old Blog</a>
+<br>
+
+<a href="#">New Blog</a>
+<br>
+
+<a href="#">Signup/login</a>
+
+</div>
+
+</div>
+
+<!-- -------------------------------------------------------------javascript----------------------------------------------------------
+ -->
+ <script>
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+  this.classList.toggle("active");
+  var dropdownContent = this.nextElementSibling;
+  if (dropdownContent.style.display === "block") {
+  dropdownContent.style.display = "none";
+  } else {
+  dropdownContent.style.display = "block";
+  }
+  });
+}
+</script>
+
+
+
+
+  <div class="col-sm-8 col-offset-1" style="padding-left: 50px;">
+
+
+    <!-- Post Content Column -->
+<br>
+      <div style="width: 1000px;">
+      <!-- Title -->
+      <h3 align="center" class="mt-4">{{article.title}}</h3>
+    
+      
+
+
+
+      <!-- Date/Time -->
+      <p align="center" >{{article.created_date}}</p>
+
+      <!-- Preview Image -->
+      {% if article.article_image %}
+      <img id="article_image" class="img-fluid rounded" src="{{article.article_image.url}}" alt="" width="100%" height="300" style=" border:2px solid black;border-radius:5px;">
+            <p align="right" style="color: darkred;font-size: 15px;font-weight:bold;">author: {{article.author.username}} 
+</p>
+
+      {% endif %}
+     
+
+
+      <!-- Post Content -->
+      <p class="lead">
+          {{article.content|safe}}
+      </p>
+      <br>
+<hr style="background-color: black;"><hr style="background-color: black;"><br>
+
+    </div>
+
+<div  style="border:1px solid black; width: 1000px;padding-left: 10px;padding-right: 10px; background-color:black;opacity: .9;border-radius:10px; ">     
+<br>   
+  <h5 align="center" style="background: transparent;color: white;" class="card-header">Comment:</h5>
+  <br>
+
+      {% if comments %}
+      {% for comment in comments  %}
+        <div class="media mb-4">
+          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+          <div class="media-body" style="color: white;">
+            <h5 class="mt-0">{{comment.comment_author}}</h5>
+            {{comment.comment_date}} <br>
+            {{comment.comment_content}}
+          </div>
+        </div>
+      {% endfor %}
+      
+      
+      {% else %}
+      <div class ="alert alert-danger">Never use Abusing Language</div>
+      {% endif %}
+
+      <div class="card my-4">
+          <div class="card-body">
+            <form method = "post" action = "{% url 'article:comment' article.id %}" >
+              {% csrf_token %}
+              <div class="form-group" >
+                <br>
+                  <label for="formGroupExampleInput" style=" color: black;opacity: .9;font-weight: bold;">Name</label>
+                  <input style="border:2px solid grey;" name = "comment_author" type="text" class="form-control" id="formGroupExampleInput" placeholder="type..">
+                </div>
+              <div class="form-group">
+                  <label for="formGroupExampleInput" style=" color: black;opacity: .9;font-weight: bold;">Content</label>
+                <textarea style="border:2px solid grey;" name = "comment_content" class="form-control" rows="3"></textarea>
+              </div>
+              <button type="submit" class="btn btn-danger" 
+             style="width: 80px;float: right;background-color: darkred;">Submit</button>
+            </form>
+          </div>
+        </div>
+        </div>
+        </div>
+
+
+
+      <div class="col-sm-1" style="padding-left: 100px;">
+
+<div style="width: 780px;">
+  
+            <form style="position: fixed;" >
+                 {% csrf_token %} 
+                <input style="height: 35px;width: 240px;border-color: black;" type="text" name = "keyword" class="input-sm" maxlength="64" placeholder="type here...">
+                <br>
+              <button  style="width: 245px;height: 30px;font-size: 15px;font-weight: bold;background-color: darkred  " type="submit" class="btn btn-danger" ><p>Search</p></button>
+            </form>
+
+
+</div>
+<hr>
+<hr>
+<br>
+<br>
+<br>
+
+
+
+     <div style="width: 250px;height: 300px;position: fixed; background-color: black;padding:10px;border:1px solid grey;opacity: .9">
+      <h1 align="center"  style="font-weight: bold;font-size: 20px;">Best Authors</h1>
+       
+{% if articss %}
+
+{% for k in articss %}
+    <a href="#" ><p align="center" style="font-size: 16px;color: white;font-weight: lighter;">{{k.username}}</p></a>
+
+
+{% endfor %}
+ {% endif %}
+
+     </div>
+
+<hr>
+<hr>
+<br>
+<br>
+
+<hr>
+<hr>
+<br>
+<br>
+<hr>
+<hr>
+<br>
+<br>
+<br>
+     <div style="width: 250px;height: 300px;position: fixed; background-color: black;padding:10px;border:1px solid grey;opacity: .9"></div>
+
+
+    </div>
+</div>
+{% endblock body %}

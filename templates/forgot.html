@@ -1,0 +1,21 @@
+{% extends 'layout.html'%}
+
+{% block body %}
+ <form class="modal-content animate" method="post">
+                {% csrf_token %}
+
+
+
+    <div class="container">
+      <label for="email"><b>Enter Email</b></label>
+      <input type="Email" placeholder="Enter email" name="email" required>
+      <p>Send Link to Reset password</p>
+
+        
+      <button type="submit" class="btn-btn-danger">Send</button>
+      
+    </div>
+
+  </form>
+
+{% endblock body %}

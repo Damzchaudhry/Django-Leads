@@ -1,0 +1,42 @@
+{%  extends "layout.html" %}
+{% block q %}
+<style type="text/css">
+    body {font-family: Arial, Helvetica, sans-serif;}
+
+
+
+#img2 {
+  width:350px;
+  height: 200px;
+  border-radius: 8px;
+  padding-top: 3px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#img2:hover {
+	position: relative;
+	-ms-transform: scale(1.1); /* IE 9 */
+  -webkit-transform: scale(1.1); /* Safari 3-8 */
+  transform: scale(1.1); 
+}
+
+#a{
+  padding-left:10px;
+}
+</style>
+{% endblock q %}
+
+{% block body %}
+<br>
+<br>
+{% for k in article %}
+{% if k.article_image %}
+<a id="a" href="{{k.article_image.url}}" rel="lightbox">
+	<img  class="img2" id="img2" src="{{k.article_image.url}}" 
+	>
+{% endif %}
+{% endfor %}
+</a>
+
+{% endblock body %}

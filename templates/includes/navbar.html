@@ -1,0 +1,101 @@
+<style type="text/css">
+  
+#navbar1:hover{
+  color:gold; 
+}
+ 
+#navbar2:hover{
+  color:fuchsia; 
+}
+
+</style>
+<nav  class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+
+<!---------------------------------------------Brand-Name------------------>        
+<a id="navbar1" class="navbar-brand" href="{% url 'index'  %}">Nerd-Blog</a>
+        
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item"> 
+
+
+
+<!-- ------------------------------------------------Dropdown-------------------------------------------
+ -->              <div class="dropdown">
+              <a id="navbar2" class="nav-link" >Company</a>
+           <div class="dropdown-content">
+           <a href="{% url 'about'  %}">About</a>
+           <a href="#">Services</a>
+          <a href="#">Career</a>
+          </div>
+           </div>
+
+
+
+<!-- ------------------------------------------------Menu----------------------------------------------------------
+ -->            </li>
+            <li class="nav-item">
+                <a id="navbar2"  class="nav-link" href="{% url 'article:articles'  %}">Articles</a>
+            </li>
+            <li class="nav-item">
+                <a id="navbar2"  class="nav-link" href="{% url 'article:gal' %}">Gallary</a>
+            </li>
+            <li class="nav-item">
+                <a  id="navbar2" class="nav-link" href="{% url 'article:preview' %}">Preveiw</a>
+            </li>
+            
+          </ul>
+
+          <ul class="navbar-nav ml-auto">
+          {% if request.user.is_authenticated %}
+          
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'resume:upload'  %}">Resume</a>
+            </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'user:logout'  %}">Logout</a>
+          </li>
+           
+           <li class="nav-item">
+            <a class="nav-link" href="{% url 'article:dashboard'  %}">Create Blog</a>
+          </li>
+          {% if request.user.is_superuser%}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'article:blog'  %}">Api</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'resume:cv_list'  %}">C-V list</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'article:create'  %}">Create API</a>
+          </li>
+          {% endif %}
+          {% else %}
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'user:login'  %}">Login</a>
+            </li>
+
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'user:register'  %}">Register</a>
+          </li>
+          <li class="nav-item">
+                <a class="nav-link" href="{% url 'appli:get_it' %}">api</a>
+            </li>
+          
+          {% endif %}
+          
+          
+          </ul>
+        </div>
+    
+    
+</nav>
+
